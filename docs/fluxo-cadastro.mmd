@@ -1,0 +1,23 @@
+%%{init: {"theme": "base", "themeVariables": {"fontSize": "18px", "fontFamily": "Segoe UI, Arial, sans-serif", "primaryColor": "#DBEAFE", "primaryBorderColor": "#2563EB", "primaryTextColor": "#1E3A8A", "lineColor": "#2563EB", "actorBkg": "#2563EB", "actorBorder": "#1E3A8A", "actorTextColor": "#FFFFFF", "actorLineColor": "#93C5FD", "signalColor": "#1E3A8A", "signalTextColor": "#1E3A8A", "labelBoxBkgColor": "#DBEAFE", "labelBoxBorderColor": "#2563EB", "labelTextColor": "#1E3A8A", "loopTextColor": "#1E3A8A", "noteBkgColor": "#EFF6FF", "noteBorderColor": "#3B82F6", "sequenceNumberColor": "#FFFFFF"}}}%%
+sequenceDiagram
+    autonumber
+    participant U as 👤 Usuário
+    participant F as Angular
+    participant A as API Spring Boot
+    participant DB as H2
+    participant V as ViaCEP
+
+    U->>F: Informa nome e CEP
+    F->>A: POST /clientes
+    A->>A: Normaliza e valida o CEP (8 dígitos)
+    A->>DB: Busca o endereço pelo CEP
+    alt CEP já consultado antes
+        DB-->>A: Endereço salvo (cache)
+    else CEP novo
+        A->>V: GET /ws/{cep}/json
+        V-->>A: Dados do endereço
+        A->>DB: Salva o endereço
+    end
+    A->>DB: Salva o cliente
+    A-->>F: 200 OK (ou 400 / 404 com ProblemDetail)
+    F-->>U: Atualiza a tabela ou exibe o erro

@@ -1,0 +1,39 @@
+%%{init: {"theme": "base", "themeVariables": {"fontSize": "18px", "fontFamily": "Segoe UI, Arial, sans-serif", "primaryColor": "#DBEAFE", "primaryBorderColor": "#2563EB", "primaryTextColor": "#1E3A8A", "lineColor": "#2563EB", "clusterBkg": "#EFF6FF", "clusterBorder": "#3B82F6", "edgeLabelBackground": "#FFFFFF"}}}%%
+flowchart LR
+    U(["👤 Usuário"])
+
+    subgraph FE["🖥️ FRONTEND · Angular 19 · porta 4200"]
+        direction TB
+        AC["<b>AppComponent</b><br/>formulário + tabela"]
+        CS["<b>ClienteService</b><br/>HttpClient"]
+        AC --> CS
+    end
+
+    subgraph BE["⚙️ BACKEND · Spring Boot 4 · porta 8080"]
+        direction TB
+        RC["<b>ClienteRestController</b><br/>API REST · CORS"]
+        SVC["<b>ClienteServiceImpl</b><br/>Facade · Strategy"]
+        GEH["<b>GlobalExceptionHandler</b><br/>ProblemDetail 400 / 404"]
+        CR["<b>ClienteRepository</b><br/>Repository"]
+        ER["<b>EnderecoRepository</b><br/>Repository"]
+        VC["<b>ViaCepService</b><br/>OpenFeign · Proxy"]
+        RC --> SVC
+        SVC --> CR
+        SVC --> ER
+        SVC --> VC
+        SVC -. exceções .-> GEH
+    end
+
+    DB[("🗄️ <b>H2</b><br/>em memória")]
+    VIA{{"🌐 <b>API ViaCEP</b><br/>viacep.com.br"}}
+
+    U --> AC
+    CS == "HTTP · JSON" ==> RC
+    CR --> DB
+    ER --> DB
+    VC == "GET /ws/cep/json" ==> VIA
+
+    classDef destaque fill:#2563EB,stroke:#1E3A8A,color:#FFFFFF
+    classDef externo fill:#1E3A8A,stroke:#1E3A8A,color:#FFFFFF
+    class SVC destaque
+    class DB,VIA,U externo

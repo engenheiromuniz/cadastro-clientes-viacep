@@ -1,41 +1,93 @@
-# Cadastro de Clientes com ViaCEP
+<div align="center">
 
-Aplicação full stack de cadastro de clientes que preenche o endereço automaticamente a partir do CEP, consultando a API pública do [ViaCEP](https://viacep.com.br). O projeto foi desenvolvido como desafio do **Bootcamp DIO & CI&T**, no módulo *Design Patterns com Java: Dos Clássicos (GoF) ao Spring Framework*.
+# 📇 Cadastro de Clientes com ViaCEP
 
-A base é o lab [lab-padroes-projeto-spring](https://github.com/digitalinnovationone/lab-padroes-projeto-spring), da DIO. A partir dele, o backend foi migrado para versões atuais, bugs foram corrigidos e uma interface web em Angular foi adicionada.
+**Aplicação full stack de cadastro de clientes com preenchimento automático de endereço a partir do CEP**
 
-<!-- Sugestão: salve um print da tela em docs/tela.png e descomente a linha abaixo -->
-<!-- ![Tela do sistema](docs/tela.png) -->
+[![Java](https://img.shields.io/badge/Java-21-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white)](https://openjdk.org/projects/jdk/21/)
+[![Spring Boot](https://img.shields.io/badge/Spring_Boot-4.0.8-6DB33F?style=for-the-badge&logo=springboot&logoColor=white)](https://spring.io/projects/spring-boot)
+[![Spring Cloud OpenFeign](https://img.shields.io/badge/OpenFeign-Spring_Cloud_2025.1-6DB33F?style=for-the-badge&logo=spring&logoColor=white)](https://spring.io/projects/spring-cloud-openfeign)
+[![Angular](https://img.shields.io/badge/Angular-19-DD0031?style=for-the-badge&logo=angular&logoColor=white)](https://angular.dev)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.7-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org)
+<br>
+[![H2 Database](https://img.shields.io/badge/H2-Database-09476B?style=for-the-badge&logo=h2database&logoColor=white)](https://www.h2database.com)
+[![Swagger](https://img.shields.io/badge/Swagger-OpenAPI_3-85EA2D?style=for-the-badge&logo=swagger&logoColor=black)](https://springdoc.org)
+[![Maven](https://img.shields.io/badge/Maven-Build-C71A36?style=for-the-badge&logo=apachemaven&logoColor=white)](https://maven.apache.org)
+[![ViaCEP](https://img.shields.io/badge/API-ViaCEP-0E7C86?style=for-the-badge)](https://viacep.com.br)
 
-## Funcionalidades
+[![Status](https://img.shields.io/badge/status-conclu%C3%ADdo-brightgreen?style=flat-square)](#)
+[![Bootcamp](https://img.shields.io/badge/Bootcamp-DIO_%26_CI%26T-E4105D?style=flat-square)](https://www.dio.me)
+[![Conventional Commits](https://img.shields.io/badge/Conventional_Commits-1.0.0-FE5196?style=flat-square&logo=conventionalcommits&logoColor=white)](https://www.conventionalcommits.org/pt-br/)
+[![Design Patterns](https://img.shields.io/badge/Design_Patterns-GoF-6366F1?style=flat-square)](#-padrões-de-projeto-aplicados)
 
-- Cadastrar, listar, editar e excluir clientes (CRUD completo)
-- Preenchimento automático do endereço (logradouro, bairro, cidade e UF) a partir do CEP
-- Validação do CEP: formato (8 dígitos) e existência na base do ViaCEP
-- Cache local de endereços: um CEP já consultado não chama o ViaCEP de novo
-- Respostas de erro padronizadas (RFC 9457 – *Problem Details*), exibidas na interface
-- Documentação interativa da API com Swagger
+[Sobre](#-sobre) •
+[Funcionalidades](#-funcionalidades) •
+[Arquitetura](#-arquitetura) •
+[Padrões de Projeto](#-padrões-de-projeto-aplicados) •
+[API](#-endpoints-da-api) •
+[Como Executar](#-como-executar) •
+[Autor](#-autor)
 
-## Tecnologias
+</div>
 
-| Camada | Tecnologia |
-|---|---|
-| Backend | Java 21, Spring Boot 4.0.8, Spring Data JPA, Spring Web MVC |
-| Integração | Spring Cloud OpenFeign (Spring Cloud 2025.1.1) |
-| Banco de dados | H2 (em memória) |
-| Documentação da API | springdoc-openapi 3.0.3 (Swagger UI) |
-| Frontend | Angular 19, TypeScript, HttpClient, FormsModule |
-| Ícones | Material Icons |
+---
 
-## Estrutura do repositório
+## 📌 Sobre
+
+Projeto desenvolvido como desafio do **Bootcamp DIO & CI&T**, no módulo *Design Patterns com Java: Dos Clássicos (GoF) ao Spring Framework*.
+
+O usuário informa apenas o **nome** e o **CEP** do cliente. O sistema consulta a API pública do [ViaCEP](https://viacep.com.br) e preenche logradouro, bairro, cidade e UF automaticamente.
+
+A base é o lab [lab-padroes-projeto-spring](https://github.com/digitalinnovationone/lab-padroes-projeto-spring), da DIO. A partir dele, o backend foi **migrado para versões atuais**, **bugs foram corrigidos** e uma **interface web em Angular** foi adicionada.
+
+<!-- Sugestão: salve um print da tela em docs/tela.png e descomente as linhas abaixo -->
+<!--
+<div align="center">
+  <img src="docs/tela.png" alt="Tela do sistema" width="800">
+</div>
+-->
+
+## ✨ Funcionalidades
+
+- ✅ **CRUD completo** de clientes: cadastrar, listar, editar e excluir
+- 📍 **Endereço automático** a partir do CEP, via ViaCEP
+- 🛡️ **Validação do CEP**: formato (8 dígitos) e existência na base do ViaCEP
+- ⚡ **Cache local de endereços**: um CEP já consultado não chama o ViaCEP de novo
+- 🚨 **Erros padronizados** no formato *Problem Details* (RFC 9457), exibidos na interface
+- 📖 **Documentação interativa** da API com Swagger UI
+
+## 🧱 Arquitetura
+
+<div align="center">
+  <img src="docs/arquitetura.png" alt="Diagrama de arquitetura do sistema" width="100%">
+</div>
+
+### Fluxo de cadastro de um cliente
+
+<div align="center">
+  <img src="docs/fluxo-cadastro.png" alt="Diagrama de sequência do cadastro de cliente" width="85%">
+</div>
+
+### Estrutura do repositório
 
 ```
 cadastro-clientes-viacep/
-├── backend/    # API REST em Spring Boot
-└── frontend/   # Interface web em Angular
+├── docs/                            # Diagramas (PNG + fonte Mermaid)
+├── backend/                         # API REST em Spring Boot
+│   └── src/main/java/one/digitalinnovation/gof/
+│       ├── controller/              # ClienteRestController
+│       ├── service/                 # ClienteService, ViaCepService (Feign)
+│       │   └── impl/                # ClienteServiceImpl
+│       ├── model/                   # Cliente, Endereco e repositórios
+│       └── exception/               # Exceções e GlobalExceptionHandler
+└── frontend/                        # Interface web em Angular
+    └── src/app/
+        ├── app.component.*          # Tela única: formulário + tabela
+        ├── cliente.service.ts       # Chamadas HTTP à API
+        └── cliente.model.ts         # Interfaces Cliente e Endereco
 ```
 
-## Padrões de projeto aplicados
+## 🧩 Padrões de Projeto Aplicados
 
 | Padrão | Onde | Como |
 |---|---|---|
@@ -45,40 +97,61 @@ cadastro-clientes-viacep/
 | **Repository** | `ClienteRepository`, `EnderecoRepository` | O acesso a dados é tratado como uma coleção de objetos de domínio (Spring Data). |
 | **Proxy** | Spring Data e OpenFeign | O Spring gera em tempo de execução as implementações das interfaces de repositório e do `ViaCepService`. |
 
-Princípios aplicados: **Inversão de Controle** e **Injeção de Dependência via construtor**, no backend (Spring) e no frontend (`inject()` do Angular), e **Inversão de Dependência (DIP)**, com o controller dependendo da abstração `ClienteService`.
+**Princípios aplicados**
+- **Inversão de Controle (IoC)** e **Injeção de Dependência via construtor**, no backend (Spring) e no frontend (`inject()` do Angular)
+- **Inversão de Dependência (DIP)**: o controller depende da abstração `ClienteService`, não da implementação
 
-## Melhorias em relação ao lab original
+## 🚀 Melhorias em Relação ao Lab Original
 
-**Atualização**
-- Migração do Spring Boot 2.5 / Java 11 para Spring Boot 4.0.8 / Java 21 (`javax.persistence` → `jakarta.persistence`)
-- Swagger atualizado para `springdoc-openapi-starter-webmvc-ui`
+<details>
+<summary><b>🔼 Atualização de versões</b></summary>
 
-**Correções de bugs**
-- `PUT /clientes/{id}` criava um novo registro em vez de atualizar o existente
-- `GET`, `PUT` e `DELETE` com id inexistente retornavam 500 ou 200; agora retornam **404**
-- CEP inválido ou inexistente quebrava o cadastro (500); agora retorna **400** com mensagem clara
-- CEP era salvo em formatos diferentes (`01001000` e `01001-000`); agora é padronizado só com dígitos
-- `id` enviado no `POST` podia gerar erro; agora é ignorado e o cadastro sempre cria um novo cliente
+- Spring Boot 2.5 / Java 11 → **Spring Boot 4.0.8 / Java 21**
+- `javax.persistence` → `jakarta.persistence`
+- Swagger atualizado para `springdoc-openapi-starter-webmvc-ui` 3.0.3
 
-**Qualidade**
-- Injeção de dependência via construtor no lugar de `@Autowired` em atributos
+</details>
+
+<details>
+<summary><b>🐛 Correções de bugs</b></summary>
+
+| Problema | Antes | Depois |
+|---|---|---|
+| `PUT /clientes/{id}` | Criava um novo registro | Atualiza o cliente existente |
+| `GET`, `PUT` e `DELETE` com id inexistente | 500 ou 200 | **404 Not Found** |
+| CEP inválido ou inexistente | 500 | **400 Bad Request** com mensagem clara |
+| Formato do CEP | Salvo como `01001000` ou `01001-000` | Padronizado só com dígitos |
+| `id` enviado no `POST` | Podia gerar erro | Ignorado: o cadastro sempre cria um novo cliente |
+
+</details>
+
+<details>
+<summary><b>🧹 Qualidade de código</b></summary>
+
+- Injeção de dependência **via construtor** no lugar de `@Autowired` em atributos
 - Tratamento centralizado de exceções com `@RestControllerAdvice` e `ProblemDetail`
 - CORS liberado apenas para a origem do frontend (`http://localhost:4200`)
 
-**Novo**
-- Interface web em Angular 19
+</details>
 
-## Endpoints da API
+<details>
+<summary><b>🆕 Novo</b></summary>
+
+- Interface web em **Angular 19**, com formulário, tabela, edição, exclusão e mensagens de erro
+
+</details>
+
+## 🔌 Endpoints da API
 
 | Método | Rota | Descrição | Respostas |
 |---|---|---|---|
-| `GET` | `/clientes` | Lista todos os clientes | 200 |
-| `GET` | `/clientes/{id}` | Busca um cliente pelo id | 200, 404 |
-| `POST` | `/clientes` | Cadastra um cliente | 200, 400 |
-| `PUT` | `/clientes/{id}` | Atualiza um cliente | 200, 400, 404 |
-| `DELETE` | `/clientes/{id}` | Exclui um cliente | 200, 404 |
+| ![GET](https://img.shields.io/badge/GET-61AFFE?style=flat-square) | `/clientes` | Lista todos os clientes | `200` |
+| ![GET](https://img.shields.io/badge/GET-61AFFE?style=flat-square) | `/clientes/{id}` | Busca um cliente pelo id | `200` `404` |
+| ![POST](https://img.shields.io/badge/POST-49CC90?style=flat-square) | `/clientes` | Cadastra um cliente | `200` `400` |
+| ![PUT](https://img.shields.io/badge/PUT-FCA130?style=flat-square) | `/clientes/{id}` | Atualiza um cliente | `200` `400` `404` |
+| ![DELETE](https://img.shields.io/badge/DELETE-F93E3E?style=flat-square) | `/clientes/{id}` | Exclui um cliente | `200` `404` |
 
-Corpo esperado no `POST` e no `PUT`. Os demais campos do endereço são preenchidos pelo ViaCEP:
+**Corpo esperado no `POST` e no `PUT`.** Os demais campos do endereço são preenchidos pelo ViaCEP:
 
 ```json
 {
@@ -87,7 +160,7 @@ Corpo esperado no `POST` e no `PUT`. Os demais campos do endereço são preenchi
 }
 ```
 
-Exemplo de resposta de erro:
+**Exemplo de resposta de erro:**
 
 ```json
 {
@@ -98,13 +171,13 @@ Exemplo de resposta de erro:
 }
 ```
 
-## Como executar
+## 💻 Como Executar
 
 ### Pré-requisitos
 
-- Java 21+
-- Node.js e Angular CLI 19 (`npm install -g @angular/cli@19`)
-- Conexão com a internet (para consultar o ViaCEP)
+- ☕ Java 21+
+- 🟢 Node.js e Angular CLI 19 (`npm install -g @angular/cli@19`)
+- 🌐 Conexão com a internet, para consultar o ViaCEP
 
 ### 1. Backend
 
@@ -113,12 +186,14 @@ cd backend
 ./mvnw spring-boot:run
 ```
 
-No Windows (PowerShell ou CMD), use `mvnw spring-boot:run`. Também é possível executar a classe `Application` pela IDE.
+> No Windows (PowerShell ou CMD), use `mvnw spring-boot:run`. Também é possível executar a classe `Application` pela IDE.
 
-- API: http://localhost:8080/clientes
-- Swagger UI: http://localhost:8080/swagger-ui.html
+| Recurso | URL |
+|---|---|
+| API | http://localhost:8080/clientes |
+| Swagger UI | http://localhost:8080/swagger-ui.html |
 
-O H2 é um banco em memória: os dados são apagados a cada reinício da aplicação.
+> ℹ️ O H2 é um banco em memória: os dados são apagados a cada reinício da aplicação.
 
 ### 2. Frontend
 
@@ -130,28 +205,37 @@ npm install
 ng serve
 ```
 
-Acesse http://localhost:4200. O backend precisa estar rodando.
+Acesse **http://localhost:4200**. O backend precisa estar rodando.
 
-## Fluxo de validação do CEP
+## 📝 Padrão de Commits
 
-```
-CEP informado
-  → remove caracteres não numéricos e valida 8 dígitos   (senão: 400)
-  → já existe no banco local?   sim → usa o endereço salvo
-                                não → consulta o ViaCEP
-                                        → CEP não existe?  400
-                                        → salva o endereço no banco e vincula ao cliente
-```
+O histórico segue o padrão [Conventional Commits](https://www.conventionalcommits.org/pt-br/), com os escopos `backend` e `frontend`:
 
-## Histórico de commits
+| Tipo | Uso |
+|---|---|
+| `feat` | Nova funcionalidade |
+| `fix` | Correção de bug |
+| `refactor` | Melhoria de código sem mudar o comportamento |
+| `build` | Dependências e versões |
+| `docs` | Documentação |
+| `chore` | Tarefas de estrutura |
 
-O projeto segue o padrão [Conventional Commits](https://www.conventionalcommits.org/pt-br/) (`feat`, `fix`, `refactor`, `build`, `chore`, `docs`), com os escopos `backend` e `frontend`.
+## 🙏 Créditos
 
-## Créditos
-
-- Projeto base: [lab-padroes-projeto-spring](https://github.com/digitalinnovationone/lab-padroes-projeto-spring), de Venilton FalvoJr (DIO)
+- Projeto base: [lab-padroes-projeto-spring](https://github.com/digitalinnovationone/lab-padroes-projeto-spring), de Venilton FalvoJr ([DIO](https://www.dio.me))
 - Dados de endereço: [ViaCEP](https://viacep.com.br)
 
-## Autor
+## 👤 Autor
 
-**André Luiz da Câmara Muniz** · [GitHub](https://github.com/engenheiromuniz)
+<div align="center">
+
+**André Luiz da Câmara Muniz**
+
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-engenheiro--muniz-0A66C2?style=for-the-badge)](https://www.linkedin.com/in/engenheiro-muniz)
+[![GitHub](https://img.shields.io/badge/GitHub-engenheiromuniz-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/engenheiromuniz)
+
+🔗 [linkedin.com/in/engenheiro-muniz](https://www.linkedin.com/in/engenheiro-muniz) · [github.com/engenheiromuniz](https://github.com/engenheiromuniz)
+
+⭐ Se este projeto foi útil para você, deixe uma estrela!
+
+</div>
