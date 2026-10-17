@@ -56,6 +56,7 @@ public class ClienteServiceImpl implements ClienteService {
 		// Buscar Cliente por ID, caso exista:
 		Optional<Cliente> clienteBd = clienteRepository.findById(id);
 		if (clienteBd.isPresent()) {
+			cliente.setId(id);
 			salvarClienteComCep(cliente);
 		}
 	}
