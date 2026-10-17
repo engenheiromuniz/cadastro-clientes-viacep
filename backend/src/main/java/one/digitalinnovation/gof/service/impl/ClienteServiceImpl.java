@@ -2,6 +2,7 @@ package one.digitalinnovation.gof.service.impl;
 
 import java.util.Optional;
 
+import one.digitalinnovation.gof.exception.CepInvalidoException;
 import one.digitalinnovation.gof.exception.ClienteNaoEncontradoException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -54,6 +55,7 @@ public class ClienteServiceImpl implements ClienteService {
 
 	@Override
 	public void inserir(Cliente cliente) {
+		cliente.setId(null);
 		salvarClienteComCep(cliente);
 	}
 
@@ -84,17 +86,31 @@ public class ClienteServiceImpl implements ClienteService {
 	}
 
 	private void salvarClienteComCep(Cliente cliente) {
-		// Verificar se o Endereco do Cliente já existe (pelo CEP).
-		String cep = cliente.getEndereco().getCep();
+		// ----> Código refatorado
+
+		String cep = normalizarCep(cliente);
 		Endereco endereco = enderecoRepository.findById(cep).orElseGet(() -> {
-			// Caso não exista, integrar com o ViaCEP e persistir o retorno.
 			Endereco novoEndereco = viaCepService.consultarCep(cep);
-			enderecoRepository.save(novoEndereco);
-			return novoEndereco;
+			// Quando o CEP não existe, o ViaCEP responde {"erro": "true"} e os campos vêm nulos
+			if (novoEndereco == null || novoEndereco.getCep() == null) {
+				throw new CepInvalidoException("CEP não encontrado: " + cep);
+			}
+			novoEndereco.setCep(cep); // guarda sempre só com dígitos
+			return enderecoRepository.save(novoEndereco);
 		});
 		cliente.setEndereco(endereco);
-		// Inserir Cliente, vinculando o Endereco (novo ou existente).
 		clienteRepository.save(cliente);
+	}
+
+	private String normalizarCep(Cliente cliente) {
+		if (cliente.getEndereco() == null || cliente.getEndereco().getCep() == null) {
+			throw new CepInvalidoException("CEP é obrigatório");
+		}
+		String cep = cliente.getEndereco().getCep().replaceAll("\\D", ""); // remove tudo que não é dígito
+		if (cep.length() != 8) {
+			throw new CepInvalidoException("CEP deve ter 8 dígitos: " + cliente.getEndereco().getCep());
+		}
+		return cep;
 	}
 
 }

@@ -13,4 +13,9 @@ public class GlobalExceptionHandler {
     public ProblemDetail tratarClienteNaoEncontrado(ClienteNaoEncontradoException ex) {
         return ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, ex.getMessage());
     }
+
+    @ExceptionHandler(CepInvalidoException.class)
+    public ProblemDetail tratarCepInalid(CepInvalidoException ex){
+        return ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, ex.getMessage());
+    }
 }
