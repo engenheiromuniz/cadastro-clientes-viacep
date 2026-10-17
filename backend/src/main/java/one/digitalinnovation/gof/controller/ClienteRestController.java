@@ -1,6 +1,5 @@
 package one.digitalinnovation.gof.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,8 +24,16 @@ import one.digitalinnovation.gof.service.ClienteService;
 @RequestMapping("clientes")
 public class ClienteRestController {
 
-	@Autowired
-	private ClienteService clienteService;
+//	@Autowired
+//	private ClienteService clienteService;
+
+	// ----> Refatoração: trocando a ID por injeção de dependência via construtor
+
+	private final ClienteService clienteService;
+
+	public ClienteRestController(ClienteService clienteService) {
+		this.clienteService = clienteService;
+	}
 
 	@GetMapping
 	public ResponseEntity<Iterable<Cliente>> buscarTodos() {

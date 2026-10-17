@@ -4,7 +4,7 @@ import java.util.Optional;
 
 import one.digitalinnovation.gof.exception.CepInvalidoException;
 import one.digitalinnovation.gof.exception.ClienteNaoEncontradoException;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Service;
 
 import one.digitalinnovation.gof.model.Cliente;
@@ -25,15 +25,29 @@ import one.digitalinnovation.gof.service.ViaCepService;
 public class ClienteServiceImpl implements ClienteService {
 
 	// Singleton: Injetar os componentes do Spring com @Autowired.
-	@Autowired
-	private ClienteRepository clienteRepository;
-	@Autowired
-	private EnderecoRepository enderecoRepository;
-	@Autowired
-	private ViaCepService viaCepService;
+//	@Autowired
+//	private ClienteRepository clienteRepository;
+//	@Autowired
+//	private EnderecoRepository enderecoRepository;
+//	@Autowired
+//	private ViaCepService viaCepService;
+
+	// ----> Refatoração: trocando todas as ID por injeção via construtor, isso facilita os testes unitários
 	
 	// Strategy: Implementar os métodos definidos na interface.
 	// Facade: Abstrair integrações com subsistemas, provendo uma interface simples.
+
+	private final ClienteRepository clienteRepository;
+	private final EnderecoRepository enderecoRepository;
+	private final ViaCepService viaCepService;
+
+	public ClienteServiceImpl(ClienteRepository clienteRepository,
+							  EnderecoRepository enderecoRepository,
+							  ViaCepService viaCepService) {
+		this.clienteRepository = clienteRepository;
+		this.enderecoRepository = enderecoRepository;
+		this.viaCepService = viaCepService;
+	}
 
 	@Override
 	public Iterable<Cliente> buscarTodos() {
