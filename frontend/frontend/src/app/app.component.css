@@ -1,0 +1,175 @@
+/* Variáveis de Cores (Paleta moderna e profissional) */
+:host {
+  --primary-color: #4f46e5;    /* Roxo Indigo */
+  --secondary-color: #6366f1;  /* Roxo claro */
+  --background-gradient: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
+  --card-background: #ffffff;
+  --text-main: #1f2937;
+  --text-muted: #6b7280;
+  --border-color: #f3f4f6;
+  --error-color: #ef4444;
+
+  /* Centralização da página inteira */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: var(--background-gradient);
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* Container Principal */
+.container-cadastro {
+  background: var(--card-background);
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+  padding: 2.5rem;
+  width: 100%;
+  max-width: 900px; /* Largura confortável para a tabela */
+  text-align: center;
+}
+
+/* Cabeçalho */
+.header-cadastro {
+  margin-bottom: 2rem;
+}
+
+.header-cadastro .main-icon {
+  font-size: 3rem;
+  color: var(--primary-color);
+  background: rgba(79, 70, 229, 0.1); /* rgba baseado na primary-color */
+  padding: 12px;
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+
+.header-cadastro h1 {
+  color: var(--text-main);
+  font-size: 2rem;
+  margin: 0 0 5px 0;
+  font-weight: 700;
+}
+
+.header-cadastro .subtitle {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin: 0;
+  font-weight: 600;
+}
+
+/* Mensagem de Erro */
+.alert-error {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background-color: rgba(239, 68, 68, 0.1); /* rgba baseado na error-color */
+  border-left: 4px solid var(--error-color);
+  color: darkred;
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+}
+
+.alert-error p {
+  margin: 0;
+  font-weight: 500;
+}
+
+/* Tabela Responsiva e Customizada */
+.table-responsive {
+  overflow-x: auto;
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+}
+
+.custom-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.custom-table thead {
+  background-color: #f8fafc;
+}
+
+.custom-table thead th {
+  padding: 16px;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  border-bottom: 2px solid var(--border-color);
+}
+
+.custom-table thead th .th-content {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.custom-table thead th .th-content span {
+  font-size: 1.1rem;
+  color: var(--secondary-color);
+}
+
+.custom-table tbody tr {
+  transition: background-color 0.2s ease;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.custom-table tbody tr:last-child {
+  border-bottom: none;
+}
+
+.custom-table tbody tr:hover {
+  background-color: #f8fafc;
+}
+
+.custom-table tbody td {
+  padding: 16px;
+  color: var(--text-main);
+  font-size: 0.95rem;
+  vertical-align: middle;
+}
+
+.custom-table tbody td small {
+  color: var(--text-muted);
+  font-size: 0.8rem;
+}
+
+/* Elementos Internos da Tabela */
+.font-bold {
+  font-weight: 600;
+}
+
+.badge-cep {
+  background: #f3f4f6;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-family: monospace;
+  color: var(--text-main);
+  font-weight: 500;
+}
+
+/* Estado Vazio (Sem Clientes) */
+.custom-table tbody td.empty-row {
+  text-align: center;
+  padding: 3rem !important;
+  color: var(--text-muted);
+}
+
+.custom-table tbody td.empty-row .empty-icon {
+  font-size: 2.5rem;
+  color: #cbd5e1;
+  margin-bottom: 8px;
+}
+
+.custom-table tbody td.empty-row p {
+  margin: 0;
+  font-size: 1rem;
+}
