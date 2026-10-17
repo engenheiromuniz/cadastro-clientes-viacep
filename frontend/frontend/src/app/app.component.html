@@ -58,7 +58,13 @@
               <button type="button" class="btn-icone" title="Editar" (click)="editar(cliente)">
                 <span class="material-icons">edit</span>
               </button>
-            </td>
+     
+             
+              <button type="button" class="btn-icone perigo" title="Excluir" (click)="excluir(cliente)">
+                <span class="material-icons">delete</span>
+              </button>
+            </td>            
+
           </tr>
         } @empty {
           <tr>
@@ -68,6 +74,8 @@
             </td>
           </tr>
         }
+
+
       </tbody>
     </table>
   </div>

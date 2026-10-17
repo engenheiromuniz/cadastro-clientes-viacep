@@ -256,3 +256,11 @@
   margin: 0;
   font-size: 1rem;
 }
+
+.btn-icone.perigo {
+  color: var(--error-color);
+}
+
+.btn-icone.perigo:hover {
+  background: rgba(239, 68, 68, 0.1); /* rgba baseado na error-color */
+}

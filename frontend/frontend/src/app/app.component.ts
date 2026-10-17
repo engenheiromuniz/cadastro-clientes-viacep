@@ -63,4 +63,22 @@ export class AppComponent implements OnInit {
     this.nome = '';
     this.cep = '';
   }
+
+
+  excluir(cliente: Cliente): void {
+    if (!cliente.id || !confirm(`Excluir o cliente ${cliente.nome}?`)) {
+      return;
+    }
+    this.erro = '';
+    this.clienteService.excluir(cliente.id).subscribe({
+      next: () => {
+        if (this.idEmEdicao === cliente.id) {
+          this.limpar(); // se estava editando quem foi excluído, limpa o formulário
+        }
+        this.carregar();
+      },
+      error: (e: HttpErrorResponse) => (this.erro = e.error?.detail ?? 'Erro ao excluir o cliente.')
+    });
+  }
+
 }
