@@ -60,17 +60,26 @@ public class ClienteServiceImpl implements ClienteService {
 	@Override
 	public void atualizar(Long id, Cliente cliente) {
 		// Buscar Cliente por ID, caso exista:
-		Optional<Cliente> clienteBd = clienteRepository.findById(id);
-		if (clienteBd.isPresent()) {
-			//correção realizada e comitada
-			cliente.setId(id);
-			salvarClienteComCep(cliente);
-		}
+
+		// ----> Código refatorado
+//		Optional<Cliente> clienteBd = clienteRepository.findById(id);
+//		if (clienteBd.isPresent()) {
+//			//correção realizada e comitada
+//			cliente.setId(id);
+//			salvarClienteComCep(cliente);
+//		}
+
+		// ----> Método refatorado e acrescentado o método de instância abaixo
+		this.buscarPorId(id);
+		cliente.setId(id);
+		salvarClienteComCep(cliente);
 	}
 
 	@Override
 	public void deletar(Long id) {
 		// Deletar Cliente por ID.
+		// ----> Método refatorado e acrescentado o método de instância abaixo
+		this.buscarPorId(id);
 		clienteRepository.deleteById(id);
 	}
 
