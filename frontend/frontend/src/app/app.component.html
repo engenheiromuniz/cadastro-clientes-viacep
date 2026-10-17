@@ -1,12 +1,22 @@
 <main class="container-cadastro">
   <header class="header-cadastro">
-    <!-- Substituído o span antigo por esta tag img apontando para o seu novo badge -->
     <img src="assets/badge-cliente.svg" alt="Badge Cliente" class="main-icon-img">
 
     <h1>Cadastro de Clientes</h1>
     <p class="subtitle">Bootcamp DIO & CI&T</p>
   </header>
 
+  <form class="form-cadastro" (ngSubmit)="salvar()">
+    <input name="nome" placeholder="Nome do cliente" [(ngModel)]="nome" required />
+    <input name="cep" placeholder="CEP (ex.: 01001-000)" [(ngModel)]="cep" required />
+    <button type="submit" class="btn-primario">
+      <span class="material-icons">{{ idEmEdicao ? 'save' : 'person_add' }}</span>
+      {{ idEmEdicao ? 'Atualizar' : 'Cadastrar' }}
+    </button>
+    @if (idEmEdicao) {
+      <button type="button" class="btn-secundario" (click)="limpar()">Cancelar</button>
+    }
+  </form>
 
   @if (erro) {
     <div class="alert-error">
@@ -28,6 +38,9 @@
           <th>
             <div class="th-content"><span class="material-icons">home</span> Endereço</div>
           </th>
+          <th>
+            <div class="th-content"><span class="material-icons">settings</span> Ações</div>
+          </th>
         </tr>
       </thead>
       <tbody>
@@ -36,13 +49,20 @@
             <td class="font-bold">{{ cliente.nome }}</td>
             <td><span class="badge-cep">{{ cliente.endereco.cep }}</span></td>
             <td>
-              {{ cliente.endereco.logradouro }}, {{ cliente.endereco.bairro }}<br>
+              @if (cliente.endereco.logradouro) {
+                {{ cliente.endereco.logradouro }}, {{ cliente.endereco.bairro }}<br>
+              }
               <small>{{ cliente.endereco.localidade }} - {{ cliente.endereco.uf }}</small>
+            </td>
+            <td>
+              <button type="button" class="btn-icone" title="Editar" (click)="editar(cliente)">
+                <span class="material-icons">edit</span>
+              </button>
             </td>
           </tr>
         } @empty {
           <tr>
-            <td colspan="3" class="empty-row">
+            <td colspan="4" class="empty-row">
               <span class="material-icons empty-icon">group_add</span>
               <p>Nenhum cliente cadastrado até o momento.</p>
             </td>

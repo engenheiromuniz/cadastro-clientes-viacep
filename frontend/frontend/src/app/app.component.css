@@ -36,12 +36,9 @@
   margin-bottom: 2rem;
 }
 
-.header-cadastro .main-icon {
-  font-size: 3rem;
-  color: var(--primary-color);
-  background: rgba(79, 70, 229, 0.1); /* rgba baseado na primary-color */
-  padding: 12px;
-  border-radius: 50%;
+.header-cadastro .main-icon-img {
+  width: 72px;
+  height: 72px;
   margin-bottom: 10px;
 }
 
@@ -59,6 +56,92 @@
   letter-spacing: 1.5px;
   margin: 0;
   font-weight: 600;
+}
+
+/* Formulário de Cadastro */
+.form-cadastro {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 1.5rem;
+}
+
+.form-cadastro input {
+  flex: 1;
+  min-width: 180px;
+  padding: 10px 14px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-family: inherit;
+  color: var(--text-main);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-cadastro input:focus {
+  outline: none;
+  border-color: var(--secondary-color);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15); /* rgba baseado na secondary-color */
+}
+
+/* Botões */
+.btn-primario,
+.btn-secundario {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-family: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.btn-primario {
+  background: var(--primary-color);
+  color: #ffffff;
+}
+
+.btn-primario:hover {
+  background: var(--secondary-color);
+}
+
+.btn-primario .material-icons {
+  font-size: 1.1rem;
+}
+
+.btn-secundario {
+  background: #f3f4f6;
+  color: var(--text-main);
+}
+
+.btn-secundario:hover {
+  background: #e5e7eb;
+}
+
+/* Botão de ícone (ações da tabela) */
+.btn-icone {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: transparent;
+  color: var(--secondary-color);
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 6px;
+  transition: background-color 0.2s ease;
+}
+
+.btn-icone:hover {
+  background: rgba(99, 102, 241, 0.1); /* rgba baseado na secondary-color */
+}
+
+.btn-icone .material-icons {
+  font-size: 1.2rem;
 }
 
 /* Mensagem de Erro */
