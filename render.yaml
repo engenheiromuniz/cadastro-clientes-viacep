@@ -1,0 +1,9 @@
+# Blueprint do Render: cria o backend (API Spring Boot) no plano gratuito
+services:
+  - type: web
+    name: cadastro-clientes-viacep-api
+    runtime: docker
+    plan: free
+    rootDir: backend
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /clientes

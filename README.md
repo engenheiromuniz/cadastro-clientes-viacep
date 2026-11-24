@@ -25,7 +25,9 @@
 [Arquitetura](#-arquitetura) •
 [Padrões de Projeto](#-padrões-de-projeto-aplicados) •
 [API](#-endpoints-da-api) •
+[Demo](#-demo-online) •
 [Como Executar](#-como-executar) •
+[Deploy](#%EF%B8%8F-deploy) •
 [Autor](#-autor)
 
 </div>
@@ -46,6 +48,18 @@ A base é o lab [lab-padroes-projeto-spring](https://github.com/digitalinnovatio
   <img src="docs/tela.png" alt="Tela do sistema" width="800">
 </div>
 -->
+
+## 🚀 Demo online
+
+| | Link |
+|---|---|
+| 🖥️ **Aplicação (Angular)** | https://cadastro-clientes-viacep.vercel.app |
+| ⚙️ **API (Spring Boot)** | https://cadastro-clientes-viacep-api.onrender.com/clientes |
+| 📖 **Swagger UI** | https://cadastro-clientes-viacep-api.onrender.com/swagger-ui.html |
+
+> ⏳ A API roda no plano gratuito do Render, que "dorme" após 15 minutos sem acesso. O primeiro acesso pode levar cerca de 1 minuto; depois disso fica rápido.
+>
+> 🗃️ O banco é H2 em memória: os dados cadastrados na demo são apagados sempre que a API reinicia.
 
 ## ✨ Funcionalidades
 
@@ -224,6 +238,14 @@ O histórico segue o padrão [Conventional Commits](https://www.conventionalcomm
 
 - Projeto base: [lab-padroes-projeto-spring](https://github.com/digitalinnovationone/lab-padroes-projeto-spring), de Venilton FalvoJr ([DIO](https://www.dio.me))
 - Dados de endereço: [ViaCEP](https://viacep.com.br)
+
+## ☁️ Deploy
+
+O projeto já está preparado para publicação gratuita:
+
+- **Backend → Render**: `backend/Dockerfile` + `render.yaml` (Blueprint). No Render, use *New → Blueprint* e selecione este repositório. A porta vem da variável `PORT`, e as origens liberadas no CORS ficam em `APP_CORS_ALLOWED_ORIGINS` (opcional).
+- **Frontend → Vercel**: importe o repositório e defina **Root Directory** = `frontend/frontend`. As configurações de build estão em `vercel.json`.
+- **URL da API no frontend**: `src/environments/environment.ts` (produção) e `environment.development.ts` (local, `ng serve`). Se o Render gerar outro endereço, atualize o `environment.ts`.
 
 ## 👤 Autor
 
